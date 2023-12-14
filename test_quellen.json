@@ -1,0 +1,156 @@
+[
+        {
+            "tag": "T1",
+            "name": "Quantum computing",
+            "link": "https://arxiv.org/pdf/quant-ph/9708022.pdf",
+            "author": "Steane, A., 1998. Quantum computing. Reports on Progress in Physics, 61(2), p.117.",
+            "date": "2023-12-14"
+        },
+        {
+            "tag": "T2",
+            "name": "Quantum Computing Applications of Genetic Programming",
+            "link": "https://books.google.de/books?hl=en&lr=&id=5Qwbal3AY6oC&oi=fnd&pg=PA135&dq=quantum+computing+applications&ots=6FnkWDzoof&sig=gaZsLh-60KevPnsnzmCKBeXxiEA&redir_esc=y#v=onepage&q=quantum%20computing%20applications&f=false",
+            "author": "Spector, L., Barnum, H., Bernstein, H.J. and Swamy, N., 1999. Quantum computing applications of genetic programming. Advances in genetic programming, 3, pp.135-160.",
+            "date": "2023-12-14"
+        },
+        {
+            "tag": "T3",
+            "name": "Placeholder Entry 1",
+            "link": "https://example.com",
+            "author": "Author1, A., 2000. Placeholder Entry 1. Journal of Placeholder Research, 25(3), p.42.",
+            "date": "2023-12-15"
+        },
+        {
+            "tag": "T4",
+            "name": "Placeholder Entry 2",
+            "link": "https://example.com",
+            "author": "Author2, B., 2001. Placeholder Entry 2. Journal of Placeholder Science, 30(1), p.88.",
+            "date": "2023-12-15"
+        },
+        {
+            "tag": "T5",
+            "name": "Placeholder Entry 3",
+            "link": "https://example.com",
+            "author": "Author3, C., 2002. Placeholder Entry 3. Journal of Placeholder Studies, 15(4), p.63.",
+            "date": "2023-12-16"
+        },
+        {
+            "tag": "T6",
+            "name": "Placeholder Entry 4",
+            "link": "https://example.com",
+            "author": "Author4, D., 2003. Placeholder Entry 4. Journal of Placeholder Insights, 12(2), p.74.",
+            "date": "2023-12-16"
+        },
+        {
+            "tag": "T7",
+            "name": "Placeholder Entry 5",
+            "link": "https://example.com",
+            "author": "Author5, E., 2004. Placeholder Entry 5. Journal of Placeholder Knowledge, 18(3), p.55.",
+            "date": "2023-12-17"
+        },
+        {
+            "tag": "T8",
+            "name": "Placeholder Entry 6",
+            "link": "https://example.com",
+            "author": "Author6, F., 2005. Placeholder Entry 6. Journal of Placeholder Discovery, 22(1), p.91.",
+            "date": "2023-12-17"
+        },
+        {
+            "tag": "T9",
+            "name": "Placeholder Entry 7",
+            "link": "https://example.com",
+            "author": "Author7, G., 2006. Placeholder Entry 7. Journal of Placeholder Advances, 27(4), p.68.",
+            "date": "2023-12-18"
+        },
+        {
+            "tag": "T10",
+            "name": "Placeholder Entry 8",
+            "link": "https://example.com",
+            "author": "Author8, H., 2007. Placeholder Entry 8. Journal of Placeholder Technology, 14(2), p.79.",
+            "date": "2023-12-18"
+        },
+        {
+            "tag": "T11",
+            "name": "Placeholder Entry 9",
+            "link": "https://example.com",
+            "author": "Author9, I., 2008. Placeholder Entry 9. Journal of Placeholder Applications, 31(3), p.53.",
+            "date": "2023-12-19"
+        },
+        {
+            "tag": "T12",
+            "name": "Placeholder Entry 10",
+            "link": "https://example.com",
+            "author": "Author10, J., 2009. Placeholder Entry 10. Journal of Placeholder Engineering, 20(1), p.87.",
+            "date": "2023-12-19"
+        },
+        {
+            "tag": "T13",
+            "name": "Placeholder Entry 11",
+            "link": "https://example.com",
+            "author": "Author11, K., 2010. Placeholder Entry 11. Journal of Placeholder Management, 19(4), p.60.",
+            "date": "2023-12-20"
+        },
+        {
+            "tag": "T14",
+            "name": "Placeholder Entry 12",
+            "link": "https://example.com",
+            "author": "Author12, L., 2011. Placeholder Entry 12. Journal of Placeholder Theory, 28(2), p.82.",
+            "date": "2023-12-20"
+        },
+        {
+            "tag": "T15",
+            "name": "Placeholder Entry 13",
+            "link": "https://example.com",
+            "author": "Author13, M., 2012. Placeholder Entry 13. Journal of Placeholder Practice, 17(3), p.74.",
+            "date": "2023-12-21"
+        },
+        {
+            "tag": "T16",
+            "name": "Placeholder Entry 14",
+            "link": "https://example.com",
+            "author": "Author14, N., 2013. Placeholder Entry 14. Journal of Placeholder Ethics, 26(1), p.95.",
+            "date": "2023-12-21"
+        },
+        {
+            "tag": "T17",
+            "name": "Placeholder Entry 15",
+            "link": "https://example.com",
+            "author": "Author15, O., 2014. Placeholder Entry 15. Journal of Placeholder Policy, 23(4), p.67.",
+            "date": "2023-12-22"
+        },
+        {
+            "tag": "T18",
+            "name": "Placeholder Entry 16",
+            "link": "https://example.com",
+            "author": "Author16, P., 2015. Placeholder Entry 16. Journal of Placeholder Economics, 16(2), p.81.",
+            "date": "2023-12-22"
+        },
+        {
+            "tag": "T19",
+            "name": "Placeholder Entry 17",
+            "link": "https://example.com",
+            "author": "Author17, Q., 2016. Placeholder Entry 17. Journal of Placeholder Sociology, 29(3), p.58.",
+            "date": "2023-12-23"
+        },
+        {
+            "tag": "T20",
+            "name": "Placeholder Entry 18",
+            "link": "https://example.com",
+            "author": "Author18, R., 2017. Placeholder Entry 18. Journal of Placeholder Psychology, 21(1), p.92.",
+            "date": "2023-12-23"
+        },
+        {
+            "tag": "T21",
+            "name": "Placeholder Entry 19",
+            "link": "https://example.com",
+            "author": "Author19, S., 2018. Placeholder Entry 19. Journal of Placeholder Education, 18(4), p.65.",
+            "date": "2023-12-24"
+        },
+        {
+            "tag": "T22",
+            "name": "Placeholder Entry 20",
+            "link": "https://example.com",
+            "author": "Author20, T., 2019. Placeholder Entry 20. Journal of Placeholder History, 24(2), p.84.",
+            "date": "2023-12-24"
+        }
+    ]

@@ -1,0 +1,16 @@
+[
+    {
+        "tag": "T1",
+        "name": "Quantum computing",
+        "link": "https://arxiv.org/pdf/quant-ph/9708022.pdf",
+        "author": "Steane, A., 1998. Quantum computing. Reports on Progress in Physics, 61(2), p.117.",
+        "date": "2023-12-14"
+    },
+    {
+        "tag": "T2",
+        "name": "Quantum Computing Applications of Genetic Programming",
+        "link": "https://books.google.de/books?hl=en&lr=&id=5Qwbal3AY6oC&oi=fnd&pg=PA135&dq=quantum+computing+applications&ots=6FnkWDzoof&sig=gaZsLh-60KevPnsnzmCKBeXxiEA&redir_esc=y#v=onepage&q=quantum%20computing%20applications&f=false",
+        "author": "Spector, L., Barnum, H., Bernstein, H.J. and Swamy, N., 1999. Quantum computing applications of genetic programming. Advances in genetic programming, 3, pp.135-160.",
+        "date": "2023-12-14"
+    }
+]

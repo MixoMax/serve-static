@@ -5,91 +5,197 @@ import uvicorn
 import hashlib
 import json
 import datetime
+import os
 
 app = FastAPI()
 
 #static file server
 
-def verify_password(p: str) -> bool:
-    with open("./password.token", "r") as f:
-        token = f.read()
-    
-    p_hash = hashlib.sha256(p.encode()).hexdigest()
-    
-    if p_hash == token:
-        return True
-    else:
-        return False
-
 @app.get("/static/{file_name}")
-async def static_file(file_name: str):
-    if file_name.endswith(".token"):
-        return JSONResponse(content={"status": "no access"}, status_code=403)
-    return FileResponse(f"./{file_name}")
+async def static_file(file_name: str) -> FileResponse:
+    file_path = f"./static/{file_name}"
+    file_path = os.path.abspath(file_path)
+    
+    #check if file extension is allowed
+    not_allowd = ["token"]
+    if file_name.split(".")[-1] in not_allowd:
+        return JSONResponse({"message": "file extension not allowed"}, status_code=403)
+    
+    #check if file exists
+    if not os.path.exists(file_path):
+        return JSONResponse({"message": "file not found"}, status_code=404)
+    
+    #return file
+    return FileResponse(file_path)
 
-@app.get("/quellen/{json_name}")
-async def quellen(json_name: str):
-    with open("./quellen_json.html", "r") as f:
-        html = f.read()
-    
-    html = html.replace("json_url_placeholder", f"/static/{json_name}")
-    
-    return HTMLResponse(content=html, status_code=200)
 
-@app.get("/quellen_ui/add_form")
-async def quellen_add_form(p:str):
-    #p: password
-    if verify_password(p) == False:
-        return JSONResponse(content={"status": "wrong password"}, status_code=403)
-    
-    with open("./quellen_add_form.html", "r") as f:
-        html = f.read()
-    
-    return HTMLResponse(content=html, status_code=200)
 
-@app.post("/quellen_api/add")
-async def quellen_add(request: Request) -> JSONResponse:
-    #request: {p, json_fp, tag, name, link, *author, *date, *description}
-    
-    print(request.query_params)
-    
-    if verify_password(request.query_params["p"]) == False:
-        return JSONResponse(content={"status": "wrong password"}, status_code=403)
-    
-    json_fp = request.query_params["json_fp"]
+# Sources UI for presentation and other source quoting
+# sources are stored in a json file
 
-    necessary = ["tag", "name", "link"]
-    optional = ["author", "date", "description"]
+class SourceEntry:
+    tag: str
+    name: str
+    link: str
+    date: str
     
-    for n in necessary:
-        if n not in request.query_params:
-            return JSONResponse(content={"status": f"missing {n}"}, status_code=400)
+    author: str | None
+    author_link: str | None
     
-    for o in optional:
-        if o not in request.query_params or o == "":
+    description: str | None
+    
+    def __init__(self):
+        self.tag = ""
+        self.name = ""
+        self.link = ""
+        self.date = ""
+        
+        self.author = None
+        self.author_link = None
+        
+        self.description = None
+    
+    def from_json(self, data: dict):
+        self.tag = data["tag"]
+        self.name = data["name"]
+        self.link = data["link"]
+        self.date = data["date"]
+        
+        self.author = data.get("author", None)
+        self.author_link = data.get("author_link", None)
+        
+        self.description = data.get("description", None)
+        
+    def to_json(self) -> dict:
+        return {
+            "tag": self.tag,
+            "name": self.name,
+            "link": self.link,
+            "date": self.date,
             
-            if o == "date":
-                request.query_params[o] = datetime.datetime.now().strftime("YYYY-MM-DD")
-            else:
-                request.query_params[o] = ""
+            "author": self.author,
+            "author_link": self.author_link,
+            
+            "description": self.description
+        }
     
-    with open(json_fp, "r") as f:
-        data = json.load(f)
+class Sources:
+    entries: list[SourceEntry]
+    last_update: str
+    hashed_password: str
+    project_name: str
     
-    data.append({
-        "tag": request.query_params["tag"],
-        "name": request.query_params["name"],
-        "link": request.query_params["link"],
-        "author": request.query_params["author"],
-        "date": request.query_params["date"],
-        "description": request.query_params["description"]
-    })
+    authors: list[str]
     
-    with open(json_fp, "w") as f:
-        json.dump(data, f, indent=4)
+    def __init__(self):
+        self.entries = []
+        self.last_update = ""
+        self.hashed_password = ""
+        self.project_name = ""
+        
+        self.authors = []
     
-    return JSONResponse(content={"status": "success"}, status_code=200)
+    def from_json(self, data: dict):
+        self.last_update = data["last_update"]
+        self.hashed_password = data["hashed_password"]
+        self.project_name = data["project_name"]
+        
+        self.authors = data["authors"]
+        
+        for entry in data["entries"]:
+            source_entry = SourceEntry()
+            source_entry.from_json(entry)
+            self.entries.append(source_entry)
+            
+        
+    def to_json(self) -> dict:
+        entries = []
+        for entry in self.entries:
+            entries.append(entry.to_json())
+        
+        return {
+            "last_update": self.last_update,
+            "hashed_password": self.hashed_password,
+            "project_name": self.project_name,
+            
+            "authors": self.authors,
+            
+            "entries": entries
+        }
     
+
+@app.get("/sources/json/{file_path}")
+async def sources_json(file_path: str) -> JSONResponse:
+    file_path = f"./sources/{file_path}"
+    file_path = os.path.abspath(file_path)
+    
+    #check if file exists
+    if not os.path.exists(file_path):
+        return JSONResponse({"message": "file not found"}, status_code=404)
+    
+    #load file
+    with open(file_path, "r") as file:
+        data = json.load(file)
+    
+    #create sources object
+    sources = Sources()
+    sources.from_json(data)
+    
+    #return json
+    return JSONResponse(sources.to_json())
+
+
+@app.post("/sources/{file_path}/add")
+async def add_source(file_path: str, request: Request) -> JSONResponse:
+    file_path = f"./sources/{file_path}"
+    file_path = os.path.abspath(file_path)
+    
+    #check if file exists
+    if not os.path.exists(file_path):
+        return JSONResponse({"message": "file not found"}, status_code=404)
+    
+    #load file
+    with open(file_path, "r") as file:
+        data = json.load(file)
+    
+    #create sources object
+    sources = Sources()
+    sources.from_json(data)
+    
+    #check if password is correct
+    password = request.headers.get("password", "")
+    if not hashlib.sha256(password.encode()).hexdigest() == sources.hashed_password:
+        return JSONResponse({"message": "wrong password"}, status_code=403)
+    
+    #get data from request
+    data = await request.json()
+    
+    #create new source entry
+    source_entry = SourceEntry()
+    source_entry.from_json(data)
+    
+    #add source entry to sources
+    sources.entries.append(source_entry)
+    
+    #save sources
+    with open(file_path, "w") as file:
+        json.dump(sources.to_json(), file, indent=4)
+    
+    #return json
+    return JSONResponse(sources.to_json())
+
+
+@app.get("/sources/html/{file_path}")
+async def sources_html(file_path: str) -> HTMLResponse:
+    with open("./sources.html", "r") as file:
+        html = file.read()
+    
+    json_file_path = f"/sources/json/{file_path}"
+    
+    html = html.replace("JSON_FILE_PATH_PLACEHOLDER", json_file_path)
+    
+    return HTMLResponse(html)
+
 
 
 #main page

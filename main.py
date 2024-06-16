@@ -6,6 +6,9 @@ import os
 
 os.chdir("..")
 
+print(os.getcwd())
+
+
 port = 1950
 address = "0.0.0.0"
 domain_prefix = "https://static.linus-minus-sinus.org/"
@@ -13,7 +16,7 @@ domain_prefix = "https://static.linus-minus-sinus.org/"
 app = FastAPI()
 
 _all_f = os.listdir(".")
-dirs = [f for f in _all_f if os.path.isdir(f) and not f.startswith(".")]
+dirs = [f for f in _all_f if os.path.isdir(f) and not f.startswith(".") and not f.startswith("serve-")]
 
 def is_valid_file(file_path: str) -> bool:
     is_in_dir = False

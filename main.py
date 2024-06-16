@@ -4,6 +4,8 @@ import uvicorn
 
 import os
 
+os.chdir("..")
+
 port = 1950
 address = "0.0.0.0"
 domain_prefix = "https://static.linus-minus-sinus.org/"

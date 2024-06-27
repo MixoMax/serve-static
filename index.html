@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        function get_files() {
+            var url = "/get_files.json"
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    data.files.forEach(file => {
+                        create_grid_element(file)
+                    })
+                })
+        }
+
+        function create_grid_element(url) {
+            var dirs = url.split("/")
+            // remove the http://url part
+            dirs = dirs.slice(3)
+            // remove the last element (the file name)
+            var file_name = dirs.pop()
+
+            console.log(file_name, dirs)
+
+            var grid = document.querySelector(".files-grid")
+            let upper_dir = grid
+            
+            dirs.forEach(dir => {
+                // check if the element already exists
+                var element = grid.querySelector(`[data-dir="${dir}"]`)
+                console.log(element)
+                if (!element) {
+                    element = document.createElement("div")
+                    element.setAttribute("data-dir", dir)
+                    element.classList.add("dir-grid")
+                    
+                    var dir_name = document.createElement("div")
+                    dir_name.classList.add("dir-name")
+                    dir_name.innerHTML = dir
+                    element.appendChild(dir_name)
+
+                    upper_dir.appendChild(element)
+                    upper_dir = element
+                } else {
+                    upper_dir = element
+                }
+            })
+
+            console.log(upper_dir)
+
+            var a = document.createElement("a")
+            a.classList.add("file-element")
+            a.href = url
+            a.innerHTML = file_name
+            upper_dir.appendChild(a)
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            get_files()
+        })
+
+    </script>
+
+    <style>
+        html {
+            --color-bg: #6C6874;
+            --color-primary: #F9F871;
+            --color-hovor: #FA7921;
+            --color-border: #4B3F72;
+            --color-text: #E0D8DE;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(40vw, 2fr));
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .dir-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(40vw, 2fr));
+            gap: 5px;
+            padding: 5px;
+            border: 1px solid var(--color-border);
+            border-radius: 5px;
+        }
+
+        .dir-name {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .file-element {
+            padding: 5px;
+            border: 1px solid var(--color-border);
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--color-text);
+            background-color: var(--color-primary);
+        }
+
+        .file-element:hover {
+            background-color: var(--color-hovor);
+        }
+
+    </style>
+
+    <div class="files-grid">
+
+    </div>
+
+</body>
+</html>

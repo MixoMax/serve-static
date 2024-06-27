@@ -37,7 +37,7 @@ def is_valid_file(file_path: str) -> bool:
     
     return True
 
-@app.get("/")
+@app.get("/get_files.json")
 async def get_files() -> JSONResponse:
     file_urls = []
     for root, dirs, files in os.walk("."):
@@ -53,6 +53,10 @@ async def get_files() -> JSONResponse:
                 file_urls.append(url)
     
     return JSONResponse(content={"files": file_urls})
+
+@app.get("/")
+async def read_root() -> FileResponse:
+    return FileResponse("./serve-static/index.html")
 
 
 

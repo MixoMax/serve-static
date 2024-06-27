@@ -62,8 +62,22 @@
             upper_dir.appendChild(a)
         }
 
+        function filter_files() {
+            var search = document.querySelector(".search").value
+            var files = document.querySelectorAll(".file-element")
+
+            files.forEach(file => {
+                if (file.innerHTML.toLowerCase().includes(search.toLowerCase())) {
+                    file.classList.remove("no-show")
+                } else {
+                    file.classList.add("no-show")
+                }
+            })
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
             get_files()
+            document.querySelector(".search").addEventListener("input", filter_files)
         })
 
     </script>
@@ -120,7 +134,22 @@
             background-color: var(--color-hovor);
         }
 
+        .search {
+            width: 100%;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid var(--color-border);
+            border-radius: 5px;
+            font-size: 1.2em;
+        }
+
+        .no-show {
+            display: none;
+        }
+
     </style>
+
+    <input type="text" class="search" placeholder="Search for something 🔍"/>
 
     <div class="files-grid">
 

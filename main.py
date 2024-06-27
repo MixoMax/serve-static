@@ -16,7 +16,12 @@ domain_prefix = "https://static.linus-minus-sinus.org/"
 app = FastAPI()
 
 _all_f = os.listdir(".")
-dirs = [f for f in _all_f if os.path.isdir(f) and not f.startswith(".") and not f.startswith("serve-")]
+
+banned_dirs = ["tokens", "serve-static"]
+
+dirs = [f for f in _all_f if os.path.isdir(f) and not f.startswith(".") and not f in banned_dirs]
+
+print(dirs)
 
 def is_valid_file(file_path: str) -> bool:
     is_in_dir = False
@@ -32,7 +37,7 @@ def is_valid_file(file_path: str) -> bool:
     
     return True
 
-@app.get("/get_files")
+@app.get("/")
 async def get_files() -> JSONResponse:
     file_urls = []
     for root, dirs, files in os.walk("."):

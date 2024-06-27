@@ -57,6 +57,7 @@
 
             var a = document.createElement("a")
             a.classList.add("file-element")
+            a.setAttribute("dir-path", dirs.join("/"))
             a.href = url
             a.innerHTML = file_name
             upper_dir.appendChild(a)
@@ -66,8 +67,13 @@
             var search = document.querySelector(".search").value
             var files = document.querySelectorAll(".file-element")
 
+            var search = search.toLowerCase()
+            
             files.forEach(file => {
-                if (file.innerHTML.toLowerCase().includes(search.toLowerCase())) {
+                var dir_path = file.getAttribute("dir-path").toLowerCase()
+                var file_name = file.innerHTML.toLowerCase()
+
+                if (dir_path.includes(search) || file_name.includes(search)) {
                     file.classList.remove("no-show")
                 } else {
                     file.classList.add("no-show")

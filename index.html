@@ -79,6 +79,24 @@
                     file.classList.add("no-show")
                 }
             })
+
+            var dirs = document.querySelectorAll(".dir-grid")
+            // check if the dir has any children (even inside children) that arent hidden
+            dirs.forEach(dir => {
+                var children = dir.querySelectorAll(".file-element")
+                var show = false
+                children.forEach(child => {
+                    if (!child.classList.contains("no-show")) {
+                        show = true
+                    }
+                })
+
+                if (show) {
+                    dir.classList.remove("no-show")
+                } else {
+                    dir.classList.add("no-show")
+                }
+            })
         }
 
         document.addEventListener("DOMContentLoaded", function() {
